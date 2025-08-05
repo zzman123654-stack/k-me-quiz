@@ -12,25 +12,28 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
+      padding: 10px;
+      box-sizing: border-box;
     }
 
     .container {
       background-color: white;
-      padding: 40px;
+      padding: 30px 20px;
       border-radius: 20px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
       max-width: 400px;
-      width: 90%;
       text-align: center;
     }
 
     h1 {
       color: #007bff;
       margin-bottom: 20px;
+      font-size: 24px;
     }
 
     #symbol {
-      font-size: 72px;
+      font-size: 64px;
       margin: 30px 0;
       color: #333;
     }
@@ -38,8 +41,8 @@
     .choice-btn {
       display: block;
       margin: 10px auto;
-      padding: 14px 30px;
-      font-size: 20px;
+      padding: 14px 20px;
+      font-size: 18px;
       border: none;
       border-radius: 10px;
       background-color: #007bff;
@@ -56,13 +59,13 @@
     }
 
     #result {
-      font-size: 22px;
+      font-size: 20px;
       margin-top: 20px;
       font-weight: bold;
     }
 
     #score {
-      font-size: 18px;
+      font-size: 16px;
       margin-top: 10px;
       color: #444;
     }
@@ -70,7 +73,7 @@
     #next-btn {
       margin-top: 30px;
       padding: 12px 24px;
-      font-size: 18px;
+      font-size: 16px;
       background-color: #28a745;
       color: white;
       border: none;
@@ -84,12 +87,32 @@
       background-color: #1e7e34;
       transform: scale(1.05);
     }
+
+    /* ✅ Responsive สำหรับมือถือ */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+
+      #symbol {
+        font-size: 48px;
+      }
+
+      .choice-btn {
+        font-size: 16px;
+        padding: 12px 16px;
+      }
+
+      #next-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    
     <h1>🔬 เกมทายธาตุ</h1>
     <div id="symbol">?</div>
 
@@ -123,16 +146,30 @@
       { symbol: "Ar", name: "Argon" },
       { symbol: "K", name: "Potassium" },
       { symbol: "Ca", name: "Calcium" },
-      { symbol: "Fe", name: "Iron" },
-      { symbol: "Cu", name: "Copper" },
-      { symbol: "Zn", name: "Zinc" },
-      { symbol: "Ag", name: "Silver" },
-      { symbol: "Au", name: "Gold" },
-      { symbol: "Pb", name: "Lead" },
-      { symbol: "Sn", name: "Tin" },
-      { symbol: "I", name: "Iodine" },
+      { symbol: "Rb", name: "Rubidium" },
+      { symbol: "Sr", name: "Strontium" },
+      { symbol: "Cs", name: "Cesium" },
       { symbol: "Ba", name: "Barium" },
-      { symbol: "Hg", name: "Mercury" }
+      { symbol: "Fr", name: "Francium" },
+      { symbol: "Ra", name: "Radium" },
+      { symbol: "Ga", name: "Gallium" },
+      { symbol: "Ge", name: "Germanium" },
+      { symbol: "As", name: "Arsenic" },
+      { symbol: "Se", name: "Selenium" },
+      { symbol: "Br", name: "Bromine" },
+      { symbol: "In", name: "Indium" },
+      { symbol: "Sn", name: "Tin" },
+      { symbol: "Sb", name: "Antimony" },
+      { symbol: "Te", name: "Tellurium" },
+      { symbol: "I", name: "Iodine" },
+      { symbol: "Tl", name: "Thallium" },
+      { symbol: "Pb", name: "Lead" },
+      { symbol: "Bi", name: "Bismuth" },
+      { symbol: "Po", name: "Polonium" },
+      { symbol: "At", name: "Astatine" },
+      { symbol: "Kr", name: "Krypton" },
+      { symbol: "Xe", name: "Xenon" },
+      { symbol: "Rn", name: "Radon" }
     ];
 
     let correctAnswer = "";
@@ -177,14 +214,14 @@
       } else {
         result.textContent = `❌ ผิด! คำตอบที่ถูกคือ: ${correctAnswer}`;
         result.style.color = "red";
-        score = 0; // รีเซ็ตคะแนน
+        score = 0;
       }
 
       scoreDisplay.textContent = `คะแนน: ${score}`;
       document.getElementById("next-btn").style.display = "inline-block";
     }
 
-    // เริ่มเกม
+    // เริ่มเกมทันทีเมื่อโหลดหน้าเว็บ
     nextQuestion();
   </script>
 
