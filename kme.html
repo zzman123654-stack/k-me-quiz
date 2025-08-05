@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เกมทายธาตุแบบ 2 ตัวเลือก</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #b2fefa, #0ed2f7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    #symbol {
+      font-size: 72px;
+      margin: 30px 0;
+      color: #333;
+    }
+
+    .choice-btn {
+      display: block;
+      margin: 10px auto;
+      padding: 14px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      max-width: 280px;
+      transition: transform 0.15s, background-color 0.2s;
+    }
+
+    .choice-btn:hover {
+      background-color: #0056b3;
+      transform: scale(1.03);
+    }
+
+    #result {
+      font-size: 22px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    #score {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #444;
+    }
+
+    #next-btn {
+      margin-top: 30px;
+      padding: 12px 24px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+      transition: background-color 0.2s, transform 0.15s;
+    }
+
+    #next-btn:hover {
+      background-color: #1e7e34;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <h1>🔬 เกมทายธาตุ</h1>
+    <div id="symbol">?</div>
+
+    <button class="choice-btn" id="choice1" onclick="checkAnswer(this)"></button>
+    <button class="choice-btn" id="choice2" onclick="checkAnswer(this)"></button>
+
+    <div id="result"></div>
+    <div id="score">คะแนน: 0</div>
+    <button id="next-btn" onclick="nextQuestion()">➡️ ถัดไป</button>
+  </div>
+
+  <script>
+    const elements = [
+      { symbol: "H", name: "Hydrogen" },
+      { symbol: "He", name: "Helium" },
+      { symbol: "Li", name: "Lithium" },
+      { symbol: "Be", name: "Beryllium" },
+      { symbol: "B", name: "Boron" },
+      { symbol: "C", name: "Carbon" },
+      { symbol: "N", name: "Nitrogen" },
+      { symbol: "O", name: "Oxygen" },
+      { symbol: "F", name: "Fluorine" },
+      { symbol: "Ne", name: "Neon" },
+      { symbol: "Na", name: "Sodium" },
+      { symbol: "Mg", name: "Magnesium" },
+      { symbol: "Al", name: "Aluminum" },
+      { symbol: "Si", name: "Silicon" },
+      { symbol: "P", name: "Phosphorus" },
+      { symbol: "S", name: "Sulfur" },
+      { symbol: "Cl", name: "Chlorine" },
+      { symbol: "Ar", name: "Argon" },
+      { symbol: "K", name: "Potassium" },
+      { symbol: "Ca", name: "Calcium" },
+      { symbol: "Fe", name: "Iron" },
+      { symbol: "Cu", name: "Copper" },
+      { symbol: "Zn", name: "Zinc" },
+      { symbol: "Ag", name: "Silver" },
+      { symbol: "Au", name: "Gold" },
+      { symbol: "Pb", name: "Lead" },
+      { symbol: "Sn", name: "Tin" },
+      { symbol: "I", name: "Iodine" },
+      { symbol: "Ba", name: "Barium" },
+      { symbol: "Hg", name: "Mercury" }
+    ];
+
+    let correctAnswer = "";
+    let score = 0;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function nextQuestion() {
+      document.getElementById("result").textContent = "";
+      document.getElementById("next-btn").style.display = "none";
+
+      const correct = elements[Math.floor(Math.random() * elements.length)];
+      let wrong;
+      do {
+        wrong = elements[Math.floor(Math.random() * elements.length)];
+      } while (wrong.name === correct.name);
+
+      const choices = [correct.name, wrong.name];
+      shuffle(choices);
+
+      document.getElementById("symbol").textContent = correct.symbol;
+      document.getElementById("choice1").textContent = choices[0];
+      document.getElementById("choice2").textContent = choices[1];
+
+      correctAnswer = correct.name;
+    }
+
+    function checkAnswer(button) {
+      const userChoice = button.textContent;
+      const result = document.getElementById("result");
+      const scoreDisplay = document.getElementById("score");
+
+      if (userChoice === correctAnswer) {
+        result.textContent = "✅ ถูกต้อง!";
+        result.style.color = "green";
+        score += 1;
+      } else {
+        result.textContent = `❌ ผิด! คำตอบที่ถูกคือ: ${correctAnswer}`;
+        result.style.color = "red";
+        score = 0; // รีเซ็ตคะแนน
+      }
+
+      scoreDisplay.textContent = `คะแนน: ${score}`;
+      document.getElementById("next-btn").style.display = "inline-block";
+    }
+
+    // เริ่มเกม
+    nextQuestion();
+  </script>
+
+</body>
+</html>
